@@ -2,9 +2,6 @@ package com.example.demo.mapper;
 
 import com.example.demo.data.User;
 import com.example.demo.repository.entity.Person;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
 import org.springframework.stereotype.Component;
 
 @Component

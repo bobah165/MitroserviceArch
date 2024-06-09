@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name.app }}-cm
+data:
+  application.yaml: |-
+    spring:
+      application:
+        name: demo-app
+
+      datasource:
+        driver-class-name: org.postgresql.Driver
+        url: {{ .Values.db.url }}
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+      liquibase:
+        enabled: true
+        change-log: classpath:db/changelog/db.changelog-master.yaml
+    server:
+        port: 8000
+        shutdown: graceful
