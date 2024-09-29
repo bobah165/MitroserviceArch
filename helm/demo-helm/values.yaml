@@ -9,13 +9,14 @@ name:
 
 service:
   nameApp: demo-helm-service
+  portName: port-demo
   type: NodePort
   port: 80
   targetPort: 8000
 
 image:
   repository: bobah165/arch
-  tag: v5
+  tag: v13
 
 ingress:
   enabled: false
@@ -26,6 +27,10 @@ ingress:
   path:
     person: /api/person
     health: /health
+
+monitor:
+  name: helm-demo-monitor
+  path: /actuator/prometheus
 
 db:
   url: jdbc:postgresql://my-db-postgresql:5432/postgres

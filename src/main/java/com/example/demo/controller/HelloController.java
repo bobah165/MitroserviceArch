@@ -15,4 +15,11 @@ public class HelloController {
     state.setStatus("OK");
     return ResponseEntity.ok(state);
   }
+
+  @GetMapping("/health2")
+  public ResponseEntity getHealth2() {
+    var state = new Data();
+    state.setStatus("Hello world");
+    return ResponseEntity.ok(state);
+  }
 }

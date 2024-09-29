@@ -10,6 +10,31 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    enable:
+      jvm: true
+    export:
+      prometheus:
+        enabled: true
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+#        "[http.server.requests]": true
+
 server:
   port: 8000
   shutdown: graceful
