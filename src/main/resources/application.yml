@@ -1,6 +1,10 @@
 spring:
   application:
     name: demo-app
+  security:
+    user:
+      name: vova
+      password: $2a$12$jLCSGS8SVmt.HwPlkV9cXeZlyKkmjE2bl8xv6lBxYmukqvgTP5NWu
   datasource:
     url: jdbc:postgresql://my-db-postgresql:5432/postgres
     driver-class-name: org.postgresql.Driver

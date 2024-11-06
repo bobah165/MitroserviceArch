@@ -12,7 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User {
 
-  private UUID id;
+  private String id;
   private String name;
   private Integer age;
+  private String userRole;
+  private String userName;
 }

@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PersonJpaRepository extends JpaRepository<Person, UUID> {
+
+  Optional<Person> findByName(String name);
 }

@@ -20,6 +20,10 @@ public class Person {
   private UUID id;
   @Column(name = "name")
   private String name;
+  @Column(name = "user_name")
+  private String userName;
   @Column(name = "age")
   private Integer age;
+  @Column
+  private String role;
 }

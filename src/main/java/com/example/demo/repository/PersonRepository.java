@@ -2,7 +2,9 @@ package com.example.demo.repository;
 
 import com.example.demo.data.User;
 import com.example.demo.mapper.PersonMapper;
+import com.example.demo.repository.entity.Person;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -32,5 +34,10 @@ public class PersonRepository {
     var person = personJpaRepository.findById(personId)
       .orElseThrow(()-> new EntityNotFoundException("Person with id " + personId + " not found"));
     return mapper.map(person);
+  }
+
+  @Transactional(readOnly = true)
+  public Optional<Person> getAuthPerson(String userName) {
+    return personJpaRepository.findByName(userName);
   }
 }

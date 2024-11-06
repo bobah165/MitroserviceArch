@@ -22,4 +22,11 @@ public class HelloController {
     state.setStatus("Hello world");
     return ResponseEntity.ok(state);
   }
+
+  @GetMapping("/health3")
+  public ResponseEntity getHealth3() {
+    var state = new Data();
+    state.setStatus("Hello world add security");
+    return ResponseEntity.ok(state);
+  }
 }

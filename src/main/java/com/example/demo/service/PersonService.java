@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.data.User;
 import com.example.demo.repository.PersonRepository;
+import com.example.demo.repository.entity.Person;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,5 +23,9 @@ public class PersonService {
 
   public User findUser(UUID userId){
     return personRepository.getPerson(userId);
+  }
+
+  public Optional<Person> findAuthUser(String userName){
+    return personRepository.getAuthPerson(userName);
   }
 }

@@ -2,10 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.data.User;
 import com.example.demo.service.PersonService;
+import java.net.http.HttpResponse;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +25,25 @@ public class PersonController {
 
   @PostMapping("/save")
   public ResponseEntity savePerson(@RequestBody User user) {
-      personService.addUser(user);
-      return ResponseEntity.ok("User saved");
+      var currentUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      if (currentUser.getUsername().equals("admin")) {
+        personService.addUser(user);
+        return ResponseEntity.ok("User saved");
+      } else {
+        return ResponseEntity.badRequest().body("User not found or you don't have permissions");
+      }
   }
 
   @PostMapping("/update")
   public ResponseEntity updatePerson(@RequestBody User user) {
-    personService.addUser(user);
+   var currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+   var userFromDB = personService.findAuthUser(user.getName())
+     .orElseThrow();
+   if (currentUser.equals(userFromDB.getUserName())) {
+     personService.addUser(user);
+   } else {
+     return ResponseEntity.badRequest().body("User not found or you don't have permissions");
+   }
     return ResponseEntity.ok("User updated");
   }
 
