@@ -16,7 +16,7 @@ service:
 
 image:
   repository: bobah165/arch
-  tag: v13
+  tag: v22
 
 ingress:
   enabled: false
@@ -39,7 +39,14 @@ db:
 app:
   db:
     password:
-      _default: MTIzNDU2
+      _default: cG9zdGdyZXM=
     username:
       _default: cG9zdGdyZXM=
+  security:
+    admin:
+      name: YWRtaW4=
+      password: cGFzcw==
+    user:
+      name: dXNlcg==
+      password: cGFzcw==
 

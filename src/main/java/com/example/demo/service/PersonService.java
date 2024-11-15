@@ -13,15 +13,15 @@ import org.springframework.stereotype.Service;
 public class PersonService {
   private final PersonRepository personRepository;
 
-  public void addUser(User user){
+  public void addUser(Person user){
     personRepository.savePerson(user);
   }
 
-  public void deleteUser(User user){
+  public void deleteUser(Person user){
     personRepository.deletePerson(user);
   }
 
-  public User findUser(UUID userId){
+  public Person findUser(String userId){
     return personRepository.getPerson(userId);
   }
 

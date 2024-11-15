@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Person {
   @Id
-  private UUID id;
+  private String id;
   @Column(name = "name")
   private String name;
-  @Column(name = "user_name")
-  private String userName;
   @Column(name = "age")
   private Integer age;
-  @Column
+  @Column(name = "user_role")
   private String role;
+  @Column(name = "pass")
+  private String pass;
 }

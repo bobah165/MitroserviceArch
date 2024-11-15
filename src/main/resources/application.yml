@@ -1,18 +1,20 @@
 spring:
   application:
     name: demo-app
-  security:
-    user:
-      name: vova
-      password: $2a$12$jLCSGS8SVmt.HwPlkV9cXeZlyKkmjE2bl8xv6lBxYmukqvgTP5NWu
   datasource:
-    url: jdbc:postgresql://my-db-postgresql:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: 123456
+    password: postgres
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
+    parameters:
+      nameAdmin: admin
+      passwordAdmin: cGFzcw==
+      nameUser: user
+      passwordUser: cGFzcw==
+
 
 management:
   endpoints:

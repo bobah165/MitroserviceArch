@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.data.User;
+import com.example.demo.repository.entity.Person;
 import com.example.demo.service.PersonService;
 import java.net.http.HttpResponse;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class PersonController {
   private final PersonService personService;
 
   @PostMapping("/save")
-  public ResponseEntity savePerson(@RequestBody User user) {
+  public ResponseEntity savePerson(@RequestBody Person user) {
       var currentUser = (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
       if (currentUser.getUsername().equals("admin")) {
         personService.addUser(user);
@@ -35,11 +36,11 @@ public class PersonController {
   }
 
   @PostMapping("/update")
-  public ResponseEntity updatePerson(@RequestBody User user) {
+  public ResponseEntity updatePerson(@RequestBody Person user) {
    var currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
    var userFromDB = personService.findAuthUser(user.getName())
      .orElseThrow();
-   if (currentUser.equals(userFromDB.getUserName())) {
+   if (currentUser.equals(userFromDB.getName()) || currentUser.equals("admin")) {
      personService.addUser(user);
    } else {
      return ResponseEntity.badRequest().body("User not found or you don't have permissions");
@@ -48,13 +49,13 @@ public class PersonController {
   }
 
   @PostMapping("/delete")
-  public ResponseEntity deletePerson(@RequestBody User user) {
+  public ResponseEntity deletePerson(@RequestBody Person user) {
     personService.deleteUser(user);
     return ResponseEntity.ok("User deleted");
   }
 
   @GetMapping("/{userId}")
-  public ResponseEntity findPerson(@PathVariable("userId") UUID userId) {
+  public ResponseEntity findPerson(@PathVariable("userId") String userId) {
     var user = personService.findUser(userId);
     return ResponseEntity.ok(user);
   }

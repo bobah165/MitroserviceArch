@@ -18,22 +18,19 @@ public class PersonRepository {
   private final PersonMapper mapper;
 
   @Transactional
-  public void savePerson(User user) {
-    var person = mapper.map(user);
-    personJpaRepository.save(person);
+  public void savePerson(Person user) {
+    personJpaRepository.save(user);
   }
 
   @Transactional
-  public void deletePerson(User user) {
-    var person = mapper.map(user);
-    personJpaRepository.delete(person);
+  public void deletePerson(Person user) {
+    personJpaRepository.delete(user);
   }
 
   @Transactional(readOnly = true)
-  public User getPerson(UUID personId) {
-    var person = personJpaRepository.findById(personId)
+  public Person getPerson(String personId) {
+    return personJpaRepository.findById(personId)
       .orElseThrow(()-> new EntityNotFoundException("Person with id " + personId + " not found"));
-    return mapper.map(person);
   }
 
   @Transactional(readOnly = true)

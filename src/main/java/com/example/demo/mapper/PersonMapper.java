@@ -13,9 +13,8 @@ public class PersonMapper {
     var person = new Person();
     person.setAge(user.getAge());
     person.setName(user.getName());
-    person.setId(UUID.fromString(user.getId()));
+    person.setId(user.getId());
     person.setRole(user.getUserRole());
-    person.setUserName(user.getUserName());
     return person;
   }
 
@@ -25,7 +24,6 @@ public class PersonMapper {
       .age(person.getAge())
       .name(person.getName())
       .userRole(person.getRole())
-      .userName(person.getUserName())
       .build();
   }
 }
