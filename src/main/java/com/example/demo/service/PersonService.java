@@ -1,25 +1,29 @@
 package com.example.demo.service;
 
-import com.example.demo.data.User;
 import com.example.demo.repository.PersonRepository;
-import java.util.UUID;
+import com.example.demo.data.Person;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class PersonService {
   private final PersonRepository personRepository;
 
-  public void addUser(User user){
-    personRepository.savePerson(user);
-  }
+  @Transactional
+  public Person addUser(Person person){
+    var savedPerson = personRepository.getPerson(person);
 
-  public void deleteUser(User user){
-    personRepository.deletePerson(user);
-  }
+    if (savedPerson.getId().equals(person.getId())) {
+      var savedPersonVersion = savedPerson.getVersion();
+      var currentVersion = person.getVersion();
 
-  public User findUser(UUID userId){
-    return personRepository.getPerson(userId);
+      if (currentVersion <= savedPersonVersion) {
+       return savedPerson;
+      }
+    }
+
+    return personRepository.savePerson(person);
   }
 }

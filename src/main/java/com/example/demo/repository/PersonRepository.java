@@ -1,7 +1,6 @@
 package com.example.demo.repository;
 
-import com.example.demo.data.User;
-import com.example.demo.mapper.PersonMapper;
+import com.example.demo.data.Person;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -13,24 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class PersonRepository {
 
   private final PersonJpaRepository personJpaRepository;
-  private final PersonMapper mapper;
 
   @Transactional
-  public void savePerson(User user) {
-    var person = mapper.map(user);
-    personJpaRepository.save(person);
-  }
-
-  @Transactional
-  public void deletePerson(User user) {
-    var person = mapper.map(user);
-    personJpaRepository.delete(person);
+  public Person savePerson(Person person) {
+    return personJpaRepository.save(person);
   }
 
   @Transactional(readOnly = true)
-  public User getPerson(UUID personId) {
-    var person = personJpaRepository.findById(personId)
-      .orElseThrow(()-> new EntityNotFoundException("Person with id " + personId + " not found"));
-    return mapper.map(person);
+  public Person getPerson(Person person) {
+    var personId = person.getId();
+    return personJpaRepository.findById(personId)
+      .orElseGet(() -> personJpaRepository.save(person));
   }
 }

@@ -14,8 +14,8 @@ service:
   targetPort: 8000
 
 image:
-  repository: bobah165/arch
-  tag: v5
+  repository: bobah165/person
+  tag: v2
 
 ingress:
   enabled: false
@@ -25,7 +25,6 @@ ingress:
   pathType: Prefix
   path:
     person: /api/person
-    health: /health
 
 db:
   url: jdbc:postgresql://my-db-postgresql:5432/postgres

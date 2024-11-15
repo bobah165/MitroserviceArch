@@ -15,10 +15,3 @@ spec:
                 name: {{ .Values.service.nameApp }}
                 port:
                   number: {{ .Values.service.port }}
-          - path: {{ .Values.ingress.path.health }}
-            pathType: {{ .Values.ingress.pathType }}
-            backend:
-              service:
-                name: {{ .Values.service.nameApp }}
-                port:
-                  number: {{ .Values.service.port }}
